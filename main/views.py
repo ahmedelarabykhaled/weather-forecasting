@@ -9,13 +9,14 @@ from keras.layers import LSTM, Dense, Dropout, Bidirectional
 from keras.models import load_model
 import numpy as np
 from .getWeather import ModelsPredict
+import os
 
-path = r"D:\Ahmed Khaled\graduation project\django project\WeatherForecasting\main"
-
+# path = r"D:\Ahmed Khaled\graduation project\django project\WeatherForecasting\main"
+path = os.path.abspath(os.path.dirname(__file__))
 
 def index(response) :
     # predict = ModelsPredict(,[])
-    return HttpResponse(
+    return HttpResponse(path +
         '<div style="display:flex;justify-content:center;align-items:center;height:500px;flex-direction:column;"><h1 style="font-size:6em;font-family: \'Roboto\', sans-serif;">Home Page</h1><p style="font-family: \'Open Sans\', sans-serif;">Ahmed Khaled</p></div>')
 
 def home(response) :

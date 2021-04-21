@@ -5,8 +5,9 @@ from keras.models import Sequential
 from keras.layers import LSTM, Dense, Dropout, Bidirectional
 from keras.models import load_model
 import pickle
+import os
 
-path = r"D:\Ahmed Khaled\graduation project\django project\WeatherForecasting\main"
+path = os.path.abspath(os.path.dirname(__file__))
 
 class ModelsPredict :
     def __init__(self , days , summaryArray):
