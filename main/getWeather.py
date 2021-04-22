@@ -27,7 +27,7 @@ class ModelsPredict :
       np_days = self.days
       humd_days = np.array(np_days)
       humd_days = np.reshape(humd_days, (1, humd_days.shape[0], 10))
-      humidity = load_model('models/modeltrainghumidity.h5')
+      humidity = load_model(path + '/models/modeltrainghumidity.h5')
       predicted_Humidity = humidity.predict(humd_days)
       return predicted_Humidity
 
@@ -36,7 +36,7 @@ class ModelsPredict :
       np_days = self.days
       load_days = np.array(np_days)
       load_days = np.reshape(load_days, (1, load_days.shape[0], 10))
-      load_cover = load_model('models/modeltraingLoadCover.h5')
+      load_cover = load_model(path + '/models/modeltraingLoadCover.h5')
       predicted_LoadCover = load_cover.predict(load_days)
       return predicted_LoadCover
 
@@ -45,30 +45,12 @@ class ModelsPredict :
       wind_days = np_days [: , 5:7]
       wind_days = np.array(wind_days)
       wind_days = np.reshape(wind_days, (1, wind_days.shape[0], 2))
-      wind = load_model('models/modelwindtraing.h5')
+      wind = load_model(path + '/models/modelwindtraing.h5')
       predicted_Wind = wind.predict(wind_days)
       return predicted_Wind
 
     def Summary (self):
       summary_Array = np.array(self.summaryArray)
-      summary_model = pickle.load(open('models/summary.h5', 'rb'))
+      summary_model = pickle.load(open(path + '/models/summary.h5', 'rb'))
       summaryResult = summary_model.predict(summary_Array)
       return summaryResult
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
