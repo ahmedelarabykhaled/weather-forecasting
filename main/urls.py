@@ -9,4 +9,5 @@ urlpatterns = [
     path("predictLoadCover",views.predictLoadCover, name="predictLoadCover"),
     path("predictWind",views.predictWind, name="predictWind"),
     path("predictSummery",views.predictSummery, name="predictSummery"),
+    path("predictWeather",views.predictWeather, name="predictWeather"),
 ]

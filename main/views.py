@@ -4,14 +4,12 @@ from django.http import HttpResponse
 import pandas as pd
 import numpy as np
 from .getWeather import ModelsPredict
-# import os
 from .includes import Includes
 import json
-
-# path = r"D:\Ahmed Khaled\graduation project\django project\WeatherForecasting\main"
-# path = os.path.abspath(os.path.dirname(__file__))
+import pickle
 
 days = Includes().getDays()
+
 
 def index(response) :
     # predict = ModelsPredict(,[])
@@ -40,5 +38,41 @@ def predictWind(response) :
 
 def predictSummery(response) :
     ModelWeather = ModelsPredict(days, [])
-    summery = ModelWeather.Summary()
-    return HttpResponse( summery )
+    tempreture = ModelWeather.PredictTempreture()
+    humadity = ModelWeather.predictHumidity()
+    loadCover = ModelWeather.predictLoadCover()
+    wind = ModelWeather.predictWind()
+
+    summaryarray =  [[0] * 4 for i in range(5)]
+    for i in range (5):
+        summaryarray[i][0] = tempreture [0][i]
+        summaryarray[i][1] = humadity [0][i]
+        summaryarray[i][2] = wind  [0][i]
+        summaryarray[i][3] = loadCover [0][i]
+    summaryWeather = ModelsPredict([] , summaryarray )
+    summary = summaryWeather.Summary() 
+    return HttpResponse( summary )
+
+def predictWeather(response) :
+    ModelWeather = ModelsPredict(days, [])
+    tempreture = ModelWeather.PredictTempreture()
+    humadity = ModelWeather.predictHumidity()
+    loadCover = ModelWeather.predictLoadCover()
+    wind = ModelWeather.predictWind()
+
+    summaryarray =  [[0] * 4 for i in range(5)]
+    for i in range (5):
+        summaryarray[i][0] = tempreture [0][i]
+        summaryarray[i][1] = humadity [0][i]
+        summaryarray[i][2] = wind  [0][i]
+        summaryarray[i][3] = loadCover [0][i]
+    summaryWeather = ModelsPredict([] , summaryarray )
+    Summary = summaryWeather.Summary()
+    weatherResults = [[0] * 5 for i in range(5)]
+    for i in range (5):
+        weatherResults[i][0] = tempreture [0][i]
+        weatherResults[i][1] = humadity [0][i]
+        weatherResults[i][2] = wind  [0][i]
+        weatherResults[i][3] = loadCover [0][i]
+        weatherResults[i][4] = Summary[i]
+    return HttpResponse( weatherResults )
