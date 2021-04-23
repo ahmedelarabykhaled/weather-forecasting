@@ -19,22 +19,26 @@ def index(response) :
 def predictTempreture(response) :
     ModelWeather = ModelsPredict(days , [])
     tempreature = ModelWeather.PredictTempreture()
-    return HttpResponse(tempreature)
+    tempreture_list = tempreature.tolist()
+    return HttpResponse(json.dumps(tempreture_list[0]), content_type ="application/json")
 
 def predictHumidity(response) : 
     ModelWeather = ModelsPredict(days, [])
     Humadity = ModelWeather.predictHumidity()
-    return HttpResponse( Humadity )
+    humadity_list = Humadity.tolist()
+    return HttpResponse( json.dumps(humadity_list), content_type ="application/json")
 
 def predictLoadCover(response) :
     ModelWeather = ModelsPredict(days, [])
     loadCover = ModelWeather.predictLoadCover()
-    return HttpResponse( loadCover )
+    loadCover_list = loadCover.tolist()
+    return HttpResponse( json.dumps(loadCover_list) , content_type = "application/json" )
 
 def predictWind(response) :
     ModellWeather = ModelsPredict(days, [])
     wind = ModellWeather.predictWind()
-    return HttpResponse( wind )
+    wind_list = wind.tolist()
+    return HttpResponse( json.dumps(wind_list[0]) , content_type = "application/json" )
 
 def predictSummery(response) :
     ModelWeather = ModelsPredict(days, [])
@@ -51,7 +55,8 @@ def predictSummery(response) :
         summaryarray[i][3] = loadCover [0][i]
     summaryWeather = ModelsPredict([] , summaryarray )
     summary = summaryWeather.Summary() 
-    return HttpResponse( summary )
+    summary_list = summary.tolist()
+    return HttpResponse( json.dumps(summary_list) , content_type="application/json" )
 
 def predictWeather(response) :
     ModelWeather = ModelsPredict(days, [])
@@ -68,6 +73,13 @@ def predictWeather(response) :
         summaryarray[i][3] = loadCover [0][i]
     summaryWeather = ModelsPredict([] , summaryarray )
     Summary = summaryWeather.Summary()
+
+    tempreture = tempreture.tolist()
+    humadity = humadity.tolist()
+    loadCover = loadCover.tolist()
+    wind = wind.tolist()
+    Summary = Summary.tolist()
+
     weatherResults = [[0] * 5 for i in range(5)]
     for i in range (5):
         weatherResults[i][0] = tempreture [0][i]
@@ -75,4 +87,5 @@ def predictWeather(response) :
         weatherResults[i][2] = wind  [0][i]
         weatherResults[i][3] = loadCover [0][i]
         weatherResults[i][4] = Summary[i]
-    return HttpResponse( weatherResults )
+    weatherResults = np.array(weatherResults).tolist()
+    return HttpResponse( json.dumps(weatherResults) , content_type = "application/json" )
