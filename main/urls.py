@@ -10,4 +10,5 @@ urlpatterns = [
     path("predictWind",views.predictWind, name="predictWind"),
     path("predictSummery",views.predictSummery, name="predictSummery"),
     path("predictWeather",views.predictWeather, name="predictWeather"),
+    path("predict",views.testPrediction, name="test"),
 ]

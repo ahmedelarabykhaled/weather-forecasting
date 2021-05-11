@@ -6,7 +6,7 @@ import os
 class Includes :
     def getDays(self) :
         path = os.path.abspath(os.path.dirname(__file__))
-        dataset = pd.read_csv(path+'\weatherHistory.csv')
+        dataset = pd.read_csv(path+'/weatherHistory.csv')
         final_summary = pd.DataFrame(dataset)
         unique_values = final_summary.Summary.unique()
         final_summary.Summary = pd.Categorical(final_summary.Summary)

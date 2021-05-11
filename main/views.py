@@ -89,3 +89,9 @@ def predictWeather(response) :
         weatherResults[i][4] = Summary[i]
     weatherResults = np.array(weatherResults).tolist()
     return HttpResponse( json.dumps(weatherResults) , content_type = "application/json" )
+
+def testPrediction(response) :
+    model = ModelsPredict(days, [])
+    testPredict = model.WeatherResults()
+    testPredictList = testPredict.tolist()
+    return HttpResponse( json.dumps( str(testPredictList) ) , content_type = "application/json" )
